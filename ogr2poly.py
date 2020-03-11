@@ -78,8 +78,7 @@ def createPolys(inOgr, options):
             inc += 1
 
         logging.info('Creating ' + polyName + '.poly')
-        f = open(polyName + '.poly', 'wt')
-        print >>f, polyName
+        print(polyName)
 
         # this will be a polygon, TODO: handle linestrings (must be buffered)
         geom = feat.GetGeometryRef()
@@ -126,10 +125,10 @@ def createPolys(inOgr, options):
             for i in range(0, g.GetGeometryCount()):
                 if i == 0:
                     # outer ring
-                    print >>f, i + 1
+                    print(i + 1)
                 else:
                     # inner ring
-                    print >>f, '!%d' % (i + 1)
+                    print('!%d' % (i + 1))
                 ring = g.GetGeometryRef(i)
 
                 if ring.GetPointCount() > 0:
@@ -140,10 +139,9 @@ def createPolys(inOgr, options):
                 # output all points in the ring
                 for j in range(0, ring.GetPointCount()):
                     (x, y, z) = ring.GetPoint(j)
-                    print >>f, '   %.6E   %.6E' % (x, y)
-                print >>f, 'END'
-        print >>f, 'END'
-        f.close()
+                    print('   %.6E   %.6E' % (x, y))
+                print('END')
+        print('END')
     return True
 
 if __name__ == '__main__':
