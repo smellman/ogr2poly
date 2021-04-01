@@ -52,6 +52,7 @@ def createPolys(inOgr, options):
     mercSRS.ImportFromEPSG(3857)  # TODO: make this an option
     wgsSRS = osr.SpatialReference()
     wgsSRS.ImportFromEPSG(4326)
+    wgsSRS.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
     nativeSRS2bufferSRS = osr.CoordinateTransformation(lyr.GetSpatialRef(),
                                                        mercSRS)
     bufferSRS2wgsSRS = osr.CoordinateTransformation(mercSRS, wgsSRS)
