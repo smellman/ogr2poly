@@ -32,6 +32,7 @@ import logging
 import os
 import sys
 
+from osgeo import gdal
 from osgeo import ogr
 from osgeo import osr
 
@@ -52,7 +53,8 @@ def createPolys(inOgr, options):
     mercSRS.ImportFromEPSG(3857)  # TODO: make this an option
     wgsSRS = osr.SpatialReference()
     wgsSRS.ImportFromEPSG(4326)
-    wgsSRS.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+    if int(gdal.VersionInfo()) >= 3000000:
+        wgsSRS.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
     nativeSRS2bufferSRS = osr.CoordinateTransformation(lyr.GetSpatialRef(),
                                                        mercSRS)
     bufferSRS2wgsSRS = osr.CoordinateTransformation(mercSRS, wgsSRS)
